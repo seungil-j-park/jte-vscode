@@ -1,0 +1,11 @@
+JTE for VS Code
+Copyright 2026 JTE for VS Code contributors
+
+This product includes modified syntax rules from:
+JTE template syntax highlight
+Copyright 2022 Mansour Abou Jaoude
+https://github.com/maj2c/jte-template-syntax-highlight
+Licensed under the Apache License, Version 2.0.
+
+The original license is retained in third-party/jte-syntax/LICENSE.
+Modifications and other references are documented in THIRD_PARTY_NOTICES.md.

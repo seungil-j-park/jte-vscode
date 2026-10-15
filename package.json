@@ -1,0 +1,47 @@
+{
+  "name": "jte-vscode",
+  "displayName": "JTE for VS Code",
+  "description": "JTE syntax highlighting, template navigation, and Java language intelligence. Java integration is verified with Red Hat Java 1.56.0.",
+  "version": "0.1.0",
+  "publisher": "jte-local",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "https://github.com/seungil-j-park/jte-vscode.git" },
+  "homepage": "https://github.com/seungil-j-park/jte-vscode#readme",
+  "bugs": { "url": "https://github.com/seungil-j-park/jte-vscode/issues" },
+  "engines": { "vscode": "^1.100.0" },
+  "categories": ["Programming Languages"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["onLanguage:jte"],
+  "extensionDependencies": ["redhat.java"],
+  "capabilities": { "untrustedWorkspaces": { "supported": false }, "virtualWorkspaces": false },
+  "contributes": {
+    "languages": [{ "id": "jte", "aliases": ["JTE", "jte"], "extensions": [".jte"], "configuration": "./language-configuration.json" }],
+    "grammars": [{
+      "language": "jte", "scopeName": "text.html.jte", "path": "./syntaxes/jte.tmLanguage.json",
+      "embeddedLanguages": { "source.java": "java", "source.css": "css", "source.js": "javascript", "text.html.basic": "html" },
+      "tokenTypes": { "meta.embedded.block.java": "other" }
+    }],
+    "javaExtensions": ["./server/jte-java.jar"],
+    "commands": [{ "command": "jte.showStatus", "title": "JTE: Show Analysis Status" }],
+    "configuration": {
+      "title": "JTE",
+      "properties": {
+        "jte.templateRoots": { "type": "array", "items": { "type": "string" }, "default": [], "description": "Template roots relative to each workspace folder. When empty, discover src/main/jte and src/test/jte across all modules." },
+        "jte.java.enabled": { "type": "boolean", "default": true, "description": "Analyze Java code using the Red Hat Java project model. Verified with Red Hat Java 1.56.0; other versions are unverified." },
+        "jte.diagnostics.enabled": { "type": "boolean", "default": true, "description": "Show JTE and Java diagnostics." }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:java": "node scripts/build-java.mjs",
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test test/unit/*.test.ts",
+    "test:integration": "node scripts/run-integration.mjs",
+    "package": "npm run build && node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0", "@types/vscode": "^1.100.0", "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0", "tsx": "^4.0.0", "typescript": "^5.8.0", "vscode-oniguruma": "^2.0.1", "vscode-textmate": "^9.2.0"
+  }
+}

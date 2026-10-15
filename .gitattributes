@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.vsix binary
+# Java manifest sections end with a blank line.
+server/MANIFEST.MF whitespace=-blank-at-eof
